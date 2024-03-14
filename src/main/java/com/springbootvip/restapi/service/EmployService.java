@@ -7,6 +7,7 @@ import java.util.List;
 public interface EmployService {
     EmployDTO createEmploy(EmployDTO employDTO);
     EmployDTO getEmployById(Long employId);
-
     List<EmployDTO> getEmployList();
+    EmployDTO updateEmploy(Long employId, EmployDTO employDTO);
+    void deleteEmploy(Long employId);
 }

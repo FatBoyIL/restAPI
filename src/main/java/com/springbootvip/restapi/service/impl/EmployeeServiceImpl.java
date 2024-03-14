@@ -40,7 +40,22 @@ public class EmployeeServiceImpl implements EmployService {
 
         return employList.stream().map(
                 (emplyee)->EmloyeeMapper.mapToDTOemployee(emplyee)
-                )
-                .collect(Collectors.toList());
+                ).toList();
+    }
+
+    @Override
+    public EmployDTO updateEmploy(Long employId, EmployDTO updateEmployDTO) {
+        Emplyee emplyee = employRepository.findById(employId).orElseThrow(()-> new RuntimeException("Không tìm thấy trong csdl"));
+        emplyee.setFname(updateEmployDTO.getFname());
+        emplyee.setLname(updateEmployDTO.getLname());
+        emplyee.setEmail(updateEmployDTO.getEmail());
+        Emplyee updatedEmploy = employRepository.save(emplyee);
+        return EmloyeeMapper.mapToDTOemployee(updatedEmploy);
+    }
+
+    @Override
+    public void deleteEmploy(Long employId) {
+        Emplyee emplyee = employRepository.findById(employId).orElseThrow(()-> new RuntimeException("Không tìm thấy trong csdl"));
+        employRepository.delete(emplyee);
     }
 }
